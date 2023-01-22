@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { TextInput, RadioButton } from 'react-native-paper';
-
+//adding some chnages to signup
 const Signup = () => {
     const [email, setemail] = useState('')
     const [checked, setchecked] = useState()
