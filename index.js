@@ -10,6 +10,5 @@ import Addvitals from './screens/Addvitals';
 import Jrdoc from './screens/Jrdoc';
 import Login from './screens/Login';
 import Signup from './screens/Signup';
-import Task from './screens/Task';
 
 AppRegistry.registerComponent(appName, () => Jrdoc);
