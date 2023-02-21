@@ -4,6 +4,31 @@ import {TextInput, Button} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Login = () => {
+
+  const loggingin=()=>{
+    
+  }
+  const signin = async () => {
+    await fetch(
+      `http://10.0.2.2/fyp/api/Nursel/Nurselogin?email=${email}&password=${password}`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          email: `${email}`,
+          password: `${password}`,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      },
+    )
+      .then(response => response.json())
+      .then(json => {
+        if (json === 'true') console.log('successfully logged in');
+        else alert('wrong input');
+      });
+  };
+
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
   return (
@@ -59,7 +84,7 @@ const Login = () => {
             style={{marginRight: 20}}
             icon="camera"
             mode="outlined"
-            onPress={() => console.log('Pressed')}>
+            onPress={signin}>
             Log In
           </Button>
           <Button
