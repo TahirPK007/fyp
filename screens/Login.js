@@ -38,7 +38,7 @@ const Login = ({navigation}) => {
           )
             .then(response => response.json())
             .then(json => {
-              if (json === 'jrdoc') console.log('successfully logged in');
+              if (json === 'jrdoc') navigation.navigate("Jrdoc")
               else alert('wrong input');
             });
         }

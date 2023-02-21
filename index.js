@@ -11,4 +11,4 @@ import Jrdoc from './screens/Jrdoc';
 import Login from './screens/Login';
 import Signup from './screens/Signup';
 
-AppRegistry.registerComponent(appName, () => Login);
+AppRegistry.registerComponent(appName, () => App);
