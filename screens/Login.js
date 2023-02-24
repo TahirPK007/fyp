@@ -39,7 +39,7 @@ const Login = ({navigation}) => {
             .then(response => response.json())
             .then(json => {
               if (json === 'jrdoc') navigation.navigate("Jrdoc")
-              else alert('wrong input');
+              else alert('wrong email or password');
             });
         }
       });
@@ -47,6 +47,7 @@ const Login = ({navigation}) => {
 
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
+
   return (
     <View style={{flex: 1}}>
       <View

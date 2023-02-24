@@ -1,10 +1,19 @@
 import {View, Text, StyleSheet} from 'react-native';
 import Reac, {useState, useEffect} from 'react';
-import {TextInput, RadioButton,Button} from 'react-native-paper';
+import {TextInput, RadioButton, Button} from 'react-native-paper';
+import {Picker} from '@react-native-picker/picker';
 
 const Addpatient = () => {
+
+  const addpat=async()=>{
+    
+  }
+  
   const [cnic, setcnic] = useState();
-  const [relation, setrelation] = useState();
+  const [fullname, setfullname] = useState('');
+  const [relation, setrelation] = useState('self');
+  const [relativename, setrelativename] = useState('')
+  const [dob, setdob] = useState('')
   const [gender, setgender] = useState('');
 
   return (
@@ -22,33 +31,42 @@ const Addpatient = () => {
       <View>
         <Text style={{color: 'red', fontSize: 20}}>Full Name</Text>
         <TextInput
-          // label="Cnic"
-          value={cnic}
-          onChangeText={text => setcnic(text)}
+          // label="Full Name"
+          value={fullname}
+          onChangeText={text => setfullname(text)}
         />
       </View>
       <View>
         <Text style={{color: 'red', fontSize: 20}}>Relation</Text>
-        <TextInput
-          // label="Cnic"
-          value={cnic}
-          onChangeText={text => setcnic(text)}
-        />
+        <Picker
+          style={{backgroundColor: 'white'}}
+          selectedValue={relation}
+          onValueChange={value => {
+            setrelation(value);
+          }}>
+          <Picker.Item label="self" value="self" />
+          <Picker.Item label="wife" value="wife" />
+          <Picker.Item label="child" value="child" />
+        </Picker>
       </View>
-      <View>
-        <Text style={{color: 'red', fontSize: 20}}>Patient Name</Text>
-        <TextInput
-          // label="Cnic"
-          value={cnic}
-          onChangeText={text => setcnic(text)}
-        />
-      </View>
+      {relation!=="self"?
+        <View>
+          <Text style={{color: 'red', fontSize: 20}}>Relative Name</Text>
+          <TextInput
+            // label="Enter relative name"
+            value={relativename}
+            onChangeText={text => setrelativename(text)}
+          />
+        </View>
+        :
+        null
+      }
       <View>
         <Text style={{color: 'red', fontSize: 20}}>D.O.B</Text>
         <TextInput
-          // label="Cnic"
-          value={cnic}
-          onChangeText={text => setcnic(text)}
+          // label="Date Of Birth"
+          value={dob}
+          onChangeText={text => setdob(text)}
         />
       </View>
       <View>
@@ -59,7 +77,7 @@ const Addpatient = () => {
             width: '100%',
             flexDirection: 'column',
           }}>
-          <Text style={{color: 'black', fontSize: 20}}>Gender</Text>
+          <Text style={{color: 'red', fontSize: 20}}>Gender</Text>
           <RadioButton.Group
             onValueChange={value => setgender(value)}
             value={gender}>
