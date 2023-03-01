@@ -1,37 +1,48 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
+import {View, Text, StyleSheet, FlatList} from 'react-native';
+import React, {useState, useEffect} from 'react';
 
 const Jrdoc = () => {
+  const [data, setdata] = useState([]);
+
+  useEffect(() => {
+    showingpat();
+  }, []);
+
+  const showingpat = async () => {
+    try {
+      const response = await fetch(
+        'http://10.0.2.2/fyp/api/Nursel/Fetchpatvit',
+      );
+      const mydata = await response.json();
+      setdata(mydata);
+      console.log(mydata);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View>
-      <View
-        style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={styles.txt}>Junior Dr. Main Form</Text>
-      </View>
-      <View
-        style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{color:"red",fontSize:40}}>Appointments</Text>
-      </View>
-      <View
-        style={{width: '100%', justifyContent: 'center',}}>
-        <Text style={styles.txt}>Appointment - 1 Patient name - Ali</Text>
-      </View>
-      <View
-        style={{width: '100%', justifyContent: 'center',}}>
-        <Text style={styles.txt}>Appointment - 2 Patient name - Hamza</Text>
-      </View>
-      <View
-        style={{width: '100%', justifyContent: 'center',}}>
-        <Text style={styles.txt}>Appointment - 3 Patient name - Zia</Text>
-      </View>
-      <View
-        style={{width: '100%', justifyContent: 'center',}}>
-        <Text style={styles.txt}>Appointment - 4 Patient name - Khan</Text>
-      </View>
-      <View
-        style={{width: '100%', justifyContent: 'center',}}>
-        <Text style={styles.txt}>Appointment - 5 Patient name - Usama</Text>
-      </View>
+      <FlatList
+        data={data}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({item}) => (
+          <View
+            style={{
+              backgroundColor: 'black',
+              margin: 10,
+              padding: 10,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text style={{color: 'white'}}>Patient Name: {item.full_name}</Text>
+            <Text style={{color: 'white'}}>emp gender: {item.gender}</Text>
+            <Text style={{color: 'white'}}>emp gender: {item.dob}</Text>
+            <Text style={{color: 'white'}}>bloodpressure: {item.v.blood_pressure}</Text>
+            <Text style={{color: 'white'}}>bloodpressure: {item.v.blood_pressure}</Text>
+          </View>
+        )}
+      />
     </View>
   );
 };

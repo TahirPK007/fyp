@@ -10,5 +10,6 @@ import Addvitals from './screens/Addvitals';
 import Jrdoc from './screens/Jrdoc';
 import Login from './screens/Login';
 import Signup from './screens/Signup';
+import Test from './screens/Test';
 
-AppRegistry.registerComponent(appName, () => Addpatient);
+AppRegistry.registerComponent(appName, () => Test);

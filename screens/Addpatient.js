@@ -1,19 +1,38 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet,Alert} from 'react-native';
 import Reac, {useState, useEffect} from 'react';
 import {TextInput, RadioButton, Button} from 'react-native-paper';
 import {Picker} from '@react-native-picker/picker';
 
-const Addpatient = () => {
+const Addpatient = ({navigation}) => {
+  const addpat = async () => {
+    fetch('http://10.0.2.2/fyp/api/Patient/Addpat', {
+      method: 'POST',
+      body: JSON.stringify({
+        cnic: `${cnic}`,
+        full_name: `${fullname}`,
+        relation: `${relation}`,
+        relative_name: `${relativename}`,
+        dob: `${dob}`,
+        gender: `${gender}`,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => response.json())
+      .then(json => console.log(json));
+  };
 
-  const addpat=async()=>{
-    
-  }
-  
+  const next = () => {
+    addpat();
+    navigation.navigate('Addvitals');
+  };
+
   const [cnic, setcnic] = useState();
   const [fullname, setfullname] = useState('');
   const [relation, setrelation] = useState('self');
-  const [relativename, setrelativename] = useState('')
-  const [dob, setdob] = useState('')
+  const [relativename, setrelativename] = useState('');
+  const [dob, setdob] = useState('');
   const [gender, setgender] = useState('');
 
   return (
@@ -49,7 +68,7 @@ const Addpatient = () => {
           <Picker.Item label="child" value="child" />
         </Picker>
       </View>
-      {relation!=="self"?
+      {relation !== 'self' ? (
         <View>
           <Text style={{color: 'red', fontSize: 20}}>Relative Name</Text>
           <TextInput
@@ -58,9 +77,7 @@ const Addpatient = () => {
             onChangeText={text => setrelativename(text)}
           />
         </View>
-        :
-        null
-      }
+      ) : null}
       <View>
         <Text style={{color: 'red', fontSize: 20}}>D.O.B</Text>
         <TextInput
@@ -92,7 +109,7 @@ const Addpatient = () => {
           style={{marginRight: 20}}
           icon="camera"
           mode="outlined"
-          onPress={() => console.log('Pressed')}>
+          onPress={next}>
           Continue
         </Button>
       </View>
