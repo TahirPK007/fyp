@@ -35,11 +35,11 @@ const Jrdoc = () => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Text style={{color: 'white'}}>Patient Name: {item.full_name}</Text>
-            <Text style={{color: 'white'}}>emp gender: {item.gender}</Text>
-            <Text style={{color: 'white'}}>emp gender: {item.dob}</Text>
-            <Text style={{color: 'white'}}>bloodpressure: {item.v.blood_pressure}</Text>
-            <Text style={{color: 'white'}}>bloodpressure: {item.v.blood_pressure}</Text>
+            <Text style={{color: 'white'}}> {item.full_name} : Patient Name</Text>
+            <Text style={{color: 'white'}}> {item.gender} : Patient gender</Text>
+            <Text style={{color: 'white'}}> {item.dob} : Patient gender</Text>
+            <Text style={{color: 'white'}}> {item.v.blood_pressure}: Patient Bloodpressure</Text>
+            <Text style={{color: 'white'}}> {item.v.sugar} : Patient Sugar</Text>
           </View>
         )}
       />

@@ -12,7 +12,11 @@ import React, {useState} from 'react';
 import {TextInput, RadioButton, Button} from 'react-native-paper';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
-const Addvitals = () => {
+const Addvitals = ({route, navigation}) => {
+  const {patient_id} = route.params;
+
+  console.log(patient_id,"on the addvitalspage")
+
   const [bp, setbp] = useState('');
   const [sugar, setsugar] = useState('');
   const [temperature, settemperature] = useState('');
@@ -27,6 +31,7 @@ const Addvitals = () => {
     data.append('temperature', temperature);
     data.append('symptoms', symptoms);
     data.append('image', imageData);
+    data.append('patient_id', patient_id);
 
     let response = await fetch('http://10.0.2.2/fyp/api/Nursel/Addvitals', {
       method: 'POST',

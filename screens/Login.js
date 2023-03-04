@@ -1,9 +1,39 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
+  const [email, setemail] = useState();
+  const [password, setpassword] = useState();
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const loginandstoring = () => {
+    saveuser();
+    signin();
+  };
+
+  const saveuser = async () => {
+    try {
+      await AsyncStorage.setItem('emaill', email);
+      await AsyncStorage.setItem('passwordd', password);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getUser = async () => {
+    try {
+      setemail(await AsyncStorage.getItem('emaill'));
+      setpassword(await AsyncStorage.getItem('passwordd'));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const signin = async () => {
     await fetch(
       `http://10.0.2.2/fyp/api/Nursel/Nurselogin?email=${email}&password=${password}`,
@@ -20,8 +50,7 @@ const Login = ({navigation}) => {
     )
       .then(response => response.json())
       .then(json => {
-        if (json === 'true')
-        navigation.navigate('Addpatient');
+        if (json === 'true') navigation.navigate('Bottomnavigator');
         else {
           fetch(
             `http://10.0.2.2/fyp/api/Jrdoc/Jrlogin?email=${email}&password=${password}`,
@@ -38,15 +67,12 @@ const Login = ({navigation}) => {
           )
             .then(response => response.json())
             .then(json => {
-              if (json === 'jrdoc') navigation.navigate("Jrdoc")
+              if (json === 'jrdoc') navigation.navigate('Jrdoc');
               else alert('wrong email or password');
             });
         }
       });
   };
-
-  const [email, setemail] = useState('');
-  const [password, setpassword] = useState('');
 
   return (
     <View style={{flex: 1}}>
@@ -101,7 +127,7 @@ const Login = ({navigation}) => {
             style={{marginRight: 20}}
             icon="camera"
             mode="outlined"
-            onPress={signin}>
+            onPress={loginandstoring}>
             Log In
           </Button>
           <Button
