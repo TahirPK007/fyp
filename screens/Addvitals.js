@@ -15,7 +15,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 const Addvitals = ({route, navigation}) => {
   const {patient_id} = route.params;
 
-  console.log(patient_id,"on the addvitalspage")
+  console.log(patient_id, 'on the addvitals page');
 
   const [bp, setbp] = useState('');
   const [sugar, setsugar] = useState('');
@@ -58,7 +58,6 @@ const Addvitals = ({route, navigation}) => {
         // If CAMERA Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        console.warn(err);
         return false;
       }
     } else return true;
@@ -77,7 +76,6 @@ const Addvitals = ({route, navigation}) => {
         // If WRITE_EXTERNAL_STORAGE Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        console.warn(err);
         alert('Write permission err', err);
       }
       return false;
@@ -198,7 +196,8 @@ const Addvitals = ({route, navigation}) => {
           onChangeText={text => setsymptoms(text)}
         />
       </View>
-      <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
+        <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
+
       <View
         style={{
           flexDirection: 'row',

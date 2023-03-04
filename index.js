@@ -11,5 +11,6 @@ import Bottomnavigator from './screens/Bottomnavigator';
 import Jrdoc from './screens/Jrdoc';
 import Login from './screens/Login';
 import Signup from './screens/Signup';
+import Splash from './screens/Splash';
 
 AppRegistry.registerComponent(appName, () => App);
