@@ -30,6 +30,7 @@ const Addpatient = ({navigation}) => {
         setrelativename(json.relative_name);
         setdob(json.dob);
         setgender(json.gender);
+        setpatid(json.patient_id);
       });
   };
 

@@ -14,7 +14,6 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const Addvitals = ({route, navigation}) => {
   const {patient_id} = route.params;
-
   console.log(patient_id, 'on the addvitals page');
 
   const [bp, setbp] = useState('');
@@ -23,6 +22,25 @@ const Addvitals = ({route, navigation}) => {
   const [symptoms, setsymptoms] = useState('');
   const [imageData, setImageData] = useState();
   const [filePath, setFilePath] = useState({});
+
+  const vits = patient_id => {
+    addvits();
+    visit(patient_id);
+  };
+
+  const visit = async () => {
+    fetch(`http://10.0.2.2/fyp/api/Patient/Visits?patient_id=${patient_id}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        patient_id: `${patient_id}`,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => response.json())
+      .then(json => console.log(json));
+  };
 
   const addvits = async () => {
     let data = new FormData();
@@ -196,7 +214,7 @@ const Addvitals = ({route, navigation}) => {
           onChangeText={text => setsymptoms(text)}
         />
       </View>
-        <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
+      <Image source={null || {uri: filePath.uri}} style={styles.imageStyle} />
 
       <View
         style={{
@@ -208,7 +226,7 @@ const Addvitals = ({route, navigation}) => {
           style={{marginRight: 20}}
           icon="camera"
           mode="outlined"
-          onPress={addvits}>
+          onPress={vits}>
           Submit
         </Button>
         <Button
